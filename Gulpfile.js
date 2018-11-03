@@ -17,7 +17,6 @@ const inject = require('gulp-inject-string');
  *  Delete dist folder content
 */
 gulp.task('del:dist', function () {
-    console.log('Deleting /dist ...');
     return del([
       'dist'
     ]);
@@ -27,18 +26,16 @@ gulp.task('del:dist', function () {
  * Create /dist folder
  * */ 
 gulp.task('create-dist', function () {
-    console.log('Creating /dist ...');
     return gulp.src('*.*', {read: false})
-        .pipe(gulp.dest('./dist'));
+        .pipe(gulp.dest('./dist'))
+        .pipe(gulp.dest('./dist/fonts'));
 });
 
 /**
  * Copy main.css to /dist
 */
 gulp.task('init-css', function () {
-    console.log('Init CSS ...');
     return gulp.src('./src/css/main.scss')
-        // .pipe(plumber())
         .pipe(sass())
         .pipe(gulp.dest('./dist'));
 });
@@ -48,8 +45,7 @@ gulp.task('init-css', function () {
  * Copy fonts to /dist/fonts
 */
 gulp.task('fonts', function () {
-    return gulp.src('./src/fonts/**/*')
-        .pipe(rename({ dirname: '' }))
+    return gulp.src('./src/css/fonts/**/*')
         .pipe(gulp.dest('./dist/fonts'));
 });
 
@@ -65,6 +61,7 @@ gulp.task('images', function () {
 // SASS compilation
 gulp.task('sass', function () {
     return gulp.src([
+            './src/css/main.scss',
             './src/css/custom.scss'
         ])
         .pipe(plumber())
@@ -93,7 +90,7 @@ var browser = require('browser-sync');
 var reload = browser.reload;
 gulp.task('serve', function () {
     browser({
-        port: 4500,
+        port: 3000,
         open: false,
         ghostMode: false,
         server: {
