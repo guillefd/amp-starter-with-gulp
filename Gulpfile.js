@@ -9,6 +9,7 @@ const plumber = require('gulp-plumber');
 const sass = require('gulp-sass');
 const concat = require('gulp-concat');
 const cssnano = require('gulp-cssnano');
+const strip = require('gulp-strip-comments');
 const fs = require("fs");
 const inject = require('gulp-inject-string');
 
@@ -63,7 +64,9 @@ gulp.task('images', function () {
 
 // SASS compilation
 gulp.task('sass', function () {
-    return gulp.src('./src/css/*.scss')
+    return gulp.src([
+            './src/css/custom.scss'
+        ])
         .pipe(plumber())
         .pipe(sass())
         .pipe(cssnano())
@@ -101,9 +104,16 @@ gulp.task('serve', function () {
 
 // Watch task
 gulp.task('watch', function () {
-    gulp.watch("./src/css/**", ['sass']);
+    gulp.watch("./src/css/**", ['sass','html']);
     gulp.watch("./src/html/**", ['html']);
 });
+
+gulp.task('clean-html', function () {
+    return gulp.src('dist/index.html')
+      .pipe(strip())
+      .pipe(gulp.dest('dist'));
+});
+
 
 /**
  * Serve local development
@@ -119,5 +129,21 @@ gulp.task('dev', function(callback) {
         'html', 
         'watch', 
         'serve',
+        callback);
+});
+
+/**
+ * Build for deployment
+ */
+gulp.task('build', function(callback) {
+    runSequence(
+        'del:dist', 
+        'create-dist', 
+        'init-css', 
+        'fonts', 
+        'sass', 
+        'images', 
+        'html', 
+        'clean-html',
         callback);
 });
