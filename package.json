@@ -1,0 +1,36 @@
+{
+  "name": "amp-starter",
+  "version": "1.0.0",
+  "description": "AMP starter with Gulp, SASS ad BrowserSync",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "amp page"
+  ],
+  "author": "Guillermo Dova",
+  "license": "MIT",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "devDependencies": {
+    "browser-sync": "^2.18.13",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-inject-string": "^1.1.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-wait2": "0.0.5",
+    "run-sequence": "^2.2.1"
+  },
+  "dependencies": {}
+}
